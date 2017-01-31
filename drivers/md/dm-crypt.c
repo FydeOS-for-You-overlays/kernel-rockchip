@@ -1520,18 +1520,18 @@ static int crypt_set_keyring_key(struct crypt_config *cc, const char *key_string
 		return PTR_ERR(key);
 	}
 
-	rcu_read_lock();
+	down_read(&key->sem);
 
 	ukp = user_key_payload(key);
 	if (!ukp) {
-		rcu_read_unlock();
+		up_read(&key->sem);
 		key_put(key);
 		kzfree(new_key_string);
 		return -EKEYREVOKED;
 	}
 
 	if (cc->key_size != ukp->datalen) {
-		rcu_read_unlock();
+		up_read(&key->sem);
 		key_put(key);
 		kzfree(new_key_string);
 		return -EINVAL;
@@ -1539,7 +1539,7 @@ static int crypt_set_keyring_key(struct crypt_config *cc, const char *key_string
 
 	memcpy(cc->key, ukp->data, cc->key_size);
 
-	rcu_read_unlock();
+	up_read(&key->sem);
 	key_put(key);
 
 	/* clear the flag since following operations may invalidate previously valid key */
