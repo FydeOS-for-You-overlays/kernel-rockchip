@@ -1547,9 +1547,6 @@ static int crypt_set_keyring_key(struct crypt_config *cc, const char *key_string
 
 	ret = crypt_setkey(cc);
 
-	/* wipe the kernel key payload copy in each case */
-	memset(cc->key, 0, cc->key_size * sizeof(u8));
-
 	if (!ret) {
 		set_bit(DM_CRYPT_KEY_VALID, &cc->flags);
 		kzfree(cc->key_string);
@@ -1835,6 +1832,9 @@ static int crypt_ctr_cipher(struct dm_target *ti,
 
 	ret = 0;
 bad:
+	/* wipe the kernel key payload copy */
+	if (cc->key_string)
+		memset(cc->key, 0, cc->key_size * sizeof(u8));
 	kfree(cipher_api);
 	return ret;
 
@@ -2171,6 +2171,9 @@ static int crypt_message(struct dm_target *ti, unsigned argc, char **argv)
 				return ret;
 			if (cc->iv_gen_ops && cc->iv_gen_ops->init)
 				ret = cc->iv_gen_ops->init(cc);
+			/* wipe the kernel key payload copy */
+			if (cc->key_string)
+				memset(cc->key, 0, cc->key_size * sizeof(u8));
 			return ret;
 		}
 		if (argc == 2 && !strcasecmp(argv[1], "wipe")) {
