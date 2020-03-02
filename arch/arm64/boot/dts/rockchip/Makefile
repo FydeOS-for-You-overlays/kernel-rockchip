@@ -118,5 +118,5 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-baicells-i5300.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += vga-off.dtb
 
 always		:= $(dtb-y)
-subdir-y	:= $(dts-dirs)
+subdir-y	:= $(dts-dirs) overlay
 clean-files	:= *.dtb

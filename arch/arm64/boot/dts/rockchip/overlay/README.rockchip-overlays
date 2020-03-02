@@ -1,0 +1,22 @@
+## Introduction
+
+This document describes overlays provided in the kernel packages.
+For generic device tree overlays documentation please see
+https://wiki.radxa.com/Device-tree-overlays
+
+## Platform and Chips:
+
+rockchip (Rockchip)
+- rk3399
+
+## Overlays provided:
+
+### rk3399 overlay details:
+
+- rk3399-pcie-gen2
+
+#### rk3399 Overlay details:
+
+#### rk3399-pcie-gen2
+
+Activates PCIe Gen2 mode
