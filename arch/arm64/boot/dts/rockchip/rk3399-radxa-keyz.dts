@@ -808,8 +808,8 @@
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&rgmii_pins>;
 	pinctrl-1 = <&rgmii_sleep_pins>;
-	tx_delay = <0x28>;
-	rx_delay = <0x11>;
+	tx_delay = <0x2b>;
+	rx_delay = <0x25>;
 	status = "okay";
 };
 
