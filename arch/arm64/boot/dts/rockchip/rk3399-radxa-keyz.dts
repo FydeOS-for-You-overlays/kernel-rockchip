@@ -16,6 +16,10 @@
 	model = "Radxa KeyZ";
 	compatible = "radxa,keyz","rockchip,rk3399";
 
+    chosen {
+		bootargs = "earlycon=uart8250,mmio32,0xff1a0000 swiotlb=1 console=ttyFIQ0 rootwait panic=0";
+	};
+
 	fiq_debugger: fiq-debugger {
 		status = "okay";
 		compatible = "rockchip,fiq-debugger";
@@ -835,13 +839,13 @@
 };
 
 &vpu {
-	status = "okay";
+	status = "disabled";
 	/* 0 means ion, 1 means drm */
 	//allocator = <0>;
 };
 
 &rkvdec {
-	status = "okay";
+	status = "disabled";
 	/* 0 means ion, 1 means drm */
 	//allocator = <0>;
 };
