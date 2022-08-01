@@ -839,13 +839,13 @@
 };
 
 &vpu {
-	status = "disabled";
+	status = "okay";
 	/* 0 means ion, 1 means drm */
 	//allocator = <0>;
 };
 
 &rkvdec {
-	status = "disabled";
+	status = "okay";
 	/* 0 means ion, 1 means drm */
 	//allocator = <0>;
 };
@@ -881,11 +881,10 @@
 
 &route_hdmi {
 	status = "okay";
-	connect = <&vopl_out_hdmi>;
 };
 
 &cdn_dp {
-	status = "okay";
+	status = "disabled";
 //	extcon = <&fusb0>;
 	extcon = <&fusb0>, <&vpd0>;
 //	phys = <&tcphy0_dp>;
@@ -904,7 +903,7 @@
 };
 
 &dp_in_vopl {
-	status = "okay";
+	status = "disabled";
 };
 
 &tcphy0_dp {

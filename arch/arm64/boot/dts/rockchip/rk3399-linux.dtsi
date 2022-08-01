@@ -46,10 +46,6 @@
 / {
 	compatible = "rockchip,linux", "rockchip,rk3399";
 
-	chosen {
-		bootargs = "earlycon=uart8250,mmio32,0xff1a0000 swiotlb=1 console=ttyFIQ0 rw root=PARTUUID=614e0000-0000 rootfstype=ext4 rootwait";
-	};
-
 	reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -129,7 +125,7 @@
 			logo,kernel = "logo_kernel.bmp";
 			logo,mode = "center";
 			charge_logo,mode = "center";
-			connect = <&vopl_out_hdmi>;
+			connect = <&vopb_out_hdmi>;
 		};
 
 		route_dsi: route-dsi {
@@ -138,7 +134,7 @@
 			logo,kernel = "logo_kernel.bmp";
 			logo,mode = "center";
 			charge_logo,mode = "center";
-			connect = <&vopb_out_dsi>;
+			connect = <&vopl_out_dsi>;
 		};
 
 		route_dsi1: route-dsi1 {
@@ -156,12 +152,12 @@
 			logo,kernel = "logo_kernel.bmp";
 			logo,mode = "center";
 			charge_logo,mode = "center";
-			connect = <&vopb_out_edp>;
+			connect = <&vopl_out_edp>;
 		};
 	};
 };
 
-/* HACK: keep MALI version on linux */
+/* HACK: keep MALI version on linux
 &gpu_power_model {
 	// for DDK r14.
 	voltage = <900>;
@@ -170,8 +166,26 @@
 	dynamic-power = <396>;
 };
 
+*/
+
 &pvtm {
 	status = "okay";
+};
+
+&rkvdec {
+	status = "okay";
+	/* 0 means ion, 1 means drm */
+	//allocator = <0>;
+};
+
+&uart2 {
+	status = "disabled";
+};
+
+&vpu {
+	status = "okay";
+	/* 0 means ion, 1 means drm */
+	//allocator = <0>;
 };
 
 &pinctrl {
