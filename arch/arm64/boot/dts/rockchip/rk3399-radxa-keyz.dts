@@ -103,7 +103,7 @@
 	};
 
 	hdmi_codec: hdmi-codec {
-		status = "okay";
+		status = "disabled";
 		compatible = "simple-audio-card";
 		simple-audio-card,format = "i2s";
 		simple-audio-card,mclk-fs = <256>;
@@ -118,11 +118,18 @@
 		};
 	};
 
+	hdmi-sound {
+               status = "okay";
+               compatible = "rockchip,rk3399-hdmi-dp";
+               rockchip,cpu = <&i2s2>;
+               rockchip,codec = <&hdmi>, <&cdn_dp>;
+       	};
+
 	rk809_sound: rk809-sound {
 		status = "okay";
 		compatible = "simple-audio-card";
 		simple-audio-card,format = "i2s";
-		simple-audio-card,name = "rockchip,rk809-codec";
+		simple-audio-card,name = "rk809-sound";
 		simple-audio-card,mclk-fs = <256>;
 		simple-audio-card,widgets =
 			"Microphone", "Mic Jack",
