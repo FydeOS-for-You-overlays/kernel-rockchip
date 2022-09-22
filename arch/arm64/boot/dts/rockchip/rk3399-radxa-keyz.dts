@@ -891,7 +891,7 @@
 };
 
 &cdn_dp {
-	status = "disabled";
+	status = "okay";
 //	extcon = <&fusb0>;
 	extcon = <&fusb0>, <&vpd0>;
 //	phys = <&tcphy0_dp>;
@@ -910,7 +910,7 @@
 };
 
 &dp_in_vopl {
-	status = "disabled";
+	status = "okay";
 };
 
 &tcphy0_dp {
