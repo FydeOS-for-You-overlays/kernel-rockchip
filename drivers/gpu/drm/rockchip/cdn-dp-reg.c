@@ -259,7 +259,7 @@ ssize_t cdn_dp_dpcd_read(struct cdn_dp_device *dp, u32 addr, u8 *data, u16 len)
 		return len;
 
 err_dpcd_read:
-	DRM_DEV_ERROR(dp->dev, "dpcd read failed: %d\n", ret);
+//	DRM_DEV_ERROR(dp->dev, "dpcd read failed: %d\n", ret);
 	return ret;
 }
 
