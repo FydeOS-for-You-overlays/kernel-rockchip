@@ -1,0 +1,44 @@
+//typec output dp
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rockpi","rockchip,rk3399";
+
+	fragment@0 {
+		target = <&cdn_dp>;
+		__overlay__ {
+			extcon = <&fusb0>;
+			phys = <&tcphy0_dp>;
+		};
+	};
+
+	fragment@1 {
+		target = <&tcphy1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@2 {
+		target = <&tcphy1_dp>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&tcphy0_dp>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@4 {
+		target = <&tcphy0>;
+		__overlay__ {
+			extcon = <&fusb0>;
+			status = "okay";
+		};
+	};
+};
