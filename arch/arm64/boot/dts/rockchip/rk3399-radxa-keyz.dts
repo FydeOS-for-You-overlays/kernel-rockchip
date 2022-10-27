@@ -893,8 +893,8 @@
 &cdn_dp {
 	status = "okay";
 //	extcon = <&fusb0>;
-	extcon = <&fusb0>, <&vpd0>;
-//	phys = <&tcphy0_dp>;
+	extcon = <&vpd0>;
+	phys = <&tcphy1_dp>;
 
 //	dp_vop_sel = <0>;
 //	phys = <&tcphy0_dp>;
@@ -914,7 +914,7 @@
 };
 
 &tcphy0_dp {
-	status = "okay";
+	status = "disabled";
 };
 
 &tcphy0_usb3 {
