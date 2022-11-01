@@ -8,7 +8,6 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	devspi2.dtbo \
 	imx219.dtbo \
 	pcie-gen2.dtbo \
-	radxa-keyz-typec-dp.dtbo \
 	rk3399-rock-pi-4c-plus-radxa-10p1inch-display.dtbo \
 	spi1-waveshare35c.dtbo \
 	spi1-waveshare35b-v2.dtbo \
