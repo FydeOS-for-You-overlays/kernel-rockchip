@@ -31,14 +31,11 @@ struct rp_gpio_data {
 static struct rp_gpio_data *gpio_data;
 static int event_flag = 0;
 static int open_now = 0;
-static int gpio_cnt = 0;
-
 
 static int gpio_open(struct inode *inode, struct file *file)
 {
 	struct dentry* dent = file->f_path.dentry;
 	char* name = NULL;
-	int name_int = 0;
 
 	name = (char*)(dent->d_name.name);
 	name = name + 4;
@@ -48,7 +45,7 @@ static int gpio_open(struct inode *inode, struct file *file)
 }
 
 
-static int gpio_write(struct file * file,const char __user* buffer,size_t count,loff_t *data)
+static ssize_t gpio_write(struct file * file,const char __user* buffer,size_t count,loff_t *data)
 {
 	char buf[2]={0};
 	char s1[]="1";
@@ -69,24 +66,25 @@ static int gpio_write(struct file * file,const char __user* buffer,size_t count,
 }
 
 
-static int gpio_read(struct file *file, char __user *buf,size_t count, loff_t *ppos)
+static ssize_t gpio_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
 {
 	int gpio_val = 0;
 	int len;
 	char s[32] = {0};
 
 	gpio_val  = gpio_get_value(gpio_data->rp_gpio_num[open_now].gpio_num);
-    printk("gpio_read gpio%d value %d\n",open_now,gpio_val);
+	
+	printk("gpio_read gpio%d value %d\n",open_now,gpio_val);
 
 	//len = sprintf(s+len, "%d",gpio_val);
 	len = sprintf(s, "%d",gpio_val);
-	copy_to_user(buf,s,len);
-	return 0;
+	
+	return copy_to_user(buf,s,len);
 }
 
 
 static const struct file_operations gpio_ops = {
-	.owner          = THIS_MODULE,
+    .owner          = THIS_MODULE,
     .open           = gpio_open,
     .write          = gpio_write,
     .read           = gpio_read,
@@ -102,7 +100,7 @@ static void send_event(unsigned long data)
 		{
 			gpio_value  = gpio_get_value(gpio_data->rp_gpio_num[i].gpio_num);
 			if (gpio_data->rp_gpio_num[i].send_mode == 0) {
- 				if (!(gpio_data->rp_gpio_num[i].action) == gpio_value) {
+ 				if (gpio_data->rp_gpio_num[i].action != gpio_value) {
                 			input_report_key(gpio_data->input, gpio_data->rp_gpio_num[i].gpio_event, 1);
                 			input_sync(gpio_data->input);
                 			mdelay(1);
@@ -231,7 +229,11 @@ static int rp_gpio_probe(struct platform_device *pdev)
 					gpio_data->input->id.product = 0x0001;
 					gpio_data->input->id.version = 0x0100;
 					input_set_capability(gpio_data->input, EV_KEY, gpio_data->rp_gpio_num[gpio_cnt].gpio_event);
-					input_register_device(gpio_data->input);
+					ret = input_register_device(gpio_data->input);
+					if (ret < 0) {
+					  printk("input_register_device\n");
+					  return ret;
+					}
 
 					/* init timer */
 					init_timer(&(gpio_data->mytimer));
@@ -264,30 +266,31 @@ static int rp_gpio_probe(struct platform_device *pdev)
 
 static int rp_gpio_remove(struct platform_device *pdev)
 {
-    struct rp_gpio_data *data = platform_get_drvdata(pdev);
     return 0;
 }
 
 #ifdef CONFIG_PM 
 static int rp_gpio_suspend(struct device *dev) 
-{ 
-	struct platform_device *pdev = to_platform_device(dev);
+{
+  /*
+    struct platform_device *pdev = to_platform_device(dev);
     struct rp_gpio_data *data = platform_get_drvdata(pdev);
         
     printk("%s\n",__func__);
- 
+  */
 	del_timer(&(gpio_data->mytimer));
  
     return 0; 
 } 
  
 static int rp_gpio_resume(struct device *dev) 
-{ 
-	struct platform_device *pdev = to_platform_device(dev);
+{
+  /*
+    struct platform_device *pdev = to_platform_device(dev);
     struct rp_gpio_data *data = platform_get_drvdata(pdev);
-    printk("%s\n",__func__);
-	add_timer(&(gpio_data->mytimer));
-    return 0; 
+  */
+  add_timer(&(gpio_data->mytimer));
+  return 0; 
 } 
  
 static const struct dev_pm_ops rp_gpio_pm_ops = { 
