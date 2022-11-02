@@ -96,8 +96,6 @@ static int rockchip_dp_poweron(struct analogix_dp_plat_data *plat_data)
 			dev_warn(dp->dev, "failed to enable vccio: %d\n", ret);
 	}
 
-	clk_prepare_enable(dp->pclk);
-
 	ret = rockchip_dp_pre_init(dp);
 	if (ret < 0) {
 		dev_err(dp->dev, "failed to dp pre init %d\n", ret);
@@ -110,8 +108,6 @@ static int rockchip_dp_poweron(struct analogix_dp_plat_data *plat_data)
 static int rockchip_dp_powerdown(struct analogix_dp_plat_data *plat_data)
 {
 	struct rockchip_dp_device *dp = to_dp(plat_data);
-
-	clk_disable_unprepare(dp->pclk);
 
 	if (dp->vccio_supply)
 		regulator_disable(dp->vccio_supply);
@@ -235,11 +231,7 @@ static int rockchip_dp_drm_encoder_loader_protect(struct drm_encoder *encoder,
 				dev_warn(dp->dev,
 					 "failed to enable vccio: %d\n", ret);
 		}
-
-		clk_prepare_enable(dp->pclk);
 	} else {
-		clk_disable_unprepare(dp->pclk);
-
 		if (dp->vccio_supply)
 			regulator_disable(dp->vccio_supply);
 
@@ -325,6 +317,7 @@ static int rockchip_dp_drm_create_encoder(struct rockchip_dp_device *dp)
 	struct device *dev = dp->dev;
 	int ret;
 
+	encoder->port = dev->of_node;
 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
 							     dev->of_node);
 	DRM_DEBUG_KMS("possible_crtcs = 0x%x\n", encoder->possible_crtcs);
@@ -346,41 +339,17 @@ static int rockchip_dp_bind(struct device *dev, struct device *master,
 {
 	struct rockchip_dp_device *dp = dev_get_drvdata(dev);
 	const struct rockchip_dp_chip_data *dp_data;
-	struct device_node *panel_node, *port, *endpoint;
 	struct drm_panel *panel = NULL;
+	struct drm_bridge *bridge = NULL;
 	struct drm_device *drm_dev = data;
 	int ret;
 
-	port = of_graph_get_port_by_id(dev->of_node, 1);
-	if (port) {
-		endpoint = of_get_child_by_name(port, "endpoint");
-		of_node_put(port);
-		if (!endpoint) {
-			dev_err(dev, "no output endpoint found\n");
-			return -EINVAL;
-		}
-
-		panel_node = of_graph_get_remote_port_parent(endpoint);
-		of_node_put(endpoint);
-		if (!panel_node) {
-			dev_err(dev, "no output node found\n");
-			return -EINVAL;
-		}
-
-    dev_info(dev, "panel name:%s,type:%s, parent:%s.\n", 
-      panel_node->name, panel_node->type,
-      panel_node->parent->name); 
-
-		panel = of_drm_find_panel(panel_node);
-		if (!panel) {
-			DRM_ERROR("failed to find panel\n");
-			of_node_put(panel_node);
-			return -EPROBE_DEFER;
-		}
-		of_node_put(panel_node);
-	}
+	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, &bridge);
+	if (ret)
+		return ret;
 
 	dp->plat_data.panel = panel;
+	dp->plat_data.bridge = bridge;
 
 	dp_data = of_device_get_match_data(dev);
 	if (!dp_data)
@@ -466,11 +435,29 @@ static int rockchip_dp_resume(struct device *dev)
 }
 #endif
 
+static int __maybe_unused rockchip_dp_runtime_suspend(struct device *dev)
+{
+	struct rockchip_dp_device *dp = dev_get_drvdata(dev);
+
+	clk_disable_unprepare(dp->pclk);
+
+	return 0;
+}
+
+static int __maybe_unused rockchip_dp_runtime_resume(struct device *dev)
+{
+	struct rockchip_dp_device *dp = dev_get_drvdata(dev);
+
+	return clk_prepare_enable(dp->pclk);
+}
+
 static const struct dev_pm_ops rockchip_dp_pm_ops = {
 #ifdef CONFIG_PM_SLEEP
-	.suspend = rockchip_dp_suspend,
+	.suspend_late = rockchip_dp_suspend,
 	.resume_early = rockchip_dp_resume,
 #endif
+	SET_RUNTIME_PM_OPS(rockchip_dp_runtime_suspend,
+			   rockchip_dp_runtime_resume, NULL)
 };
 
 static const struct rockchip_dp_chip_data rk3399_edp = {

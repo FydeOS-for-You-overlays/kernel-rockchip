@@ -259,7 +259,7 @@ ssize_t cdn_dp_dpcd_read(struct cdn_dp_device *dp, u32 addr, u8 *data, u16 len)
 		return len;
 
 err_dpcd_read:
-//	DRM_DEV_ERROR(dp->dev, "dpcd read failed: %d\n", ret);
+	// DRM_DEV_ERROR(dp->dev, "dpcd read failed: %d\n", ret);
 	return ret;
 }
 
@@ -1001,13 +1001,23 @@ static void cdn_dp_audio_config_i2s(struct cdn_dp_device *dp,
 	writel(I2S_DEC_START, dp->regs + AUDIO_SRC_CNTL);
 }
 
-static void cdn_dp_audio_config_spdif(struct cdn_dp_device *dp)
+static void cdn_dp_audio_config_spdif(struct cdn_dp_device *dp,
+				      struct audio_info *audio)
 {
 	u32 val;
+	int sub_pckt_num = 1;
 
+	if (audio->channels == 2) {
+		if (dp->link.num_lanes == 1)
+			sub_pckt_num = 2;
+		else
+			sub_pckt_num = 4;
+	}
 	writel(SYNC_WR_TO_CH_ZERO, dp->regs + FIFO_CNTL);
 
-	val = MAX_NUM_CH(2) | AUDIO_TYPE_LPCM | CFG_SUB_PCKT_NUM(4);
+	val = MAX_NUM_CH(audio->channels);
+	val |= AUDIO_TYPE_LPCM;
+	val |= CFG_SUB_PCKT_NUM(sub_pckt_num);
 	writel(val, dp->regs + SMPL2PKT_CNFG);
 	writel(SMPL2PKT_EN, dp->regs + SMPL2PKT_CNTL);
 
@@ -1057,7 +1067,7 @@ int cdn_dp_audio_config(struct cdn_dp_device *dp, struct audio_info *audio)
 	if (audio->format == AFMT_I2S)
 		cdn_dp_audio_config_i2s(dp, audio);
 	else if (audio->format == AFMT_SPDIF)
-		cdn_dp_audio_config_spdif(dp);
+		cdn_dp_audio_config_spdif(dp, audio);
 
 	ret = cdn_dp_reg_write(dp, AUDIO_PACK_CONTROL, AUDIO_PACK_EN);
 

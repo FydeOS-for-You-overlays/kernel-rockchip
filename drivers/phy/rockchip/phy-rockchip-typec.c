@@ -409,69 +409,135 @@ static const struct phy_reg usb3_pll_cfg[] = {
 };
 
 static const struct phy_reg dp_pll_rbr_cfg[] = {
-	{ 0xf0,		CMN_PLL1_VCOCAL_INIT },
-	{ 0x18,		CMN_PLL1_VCOCAL_ITER },
-	{ 0x30b9,	CMN_PLL1_VCOCAL_START },
-	{ 0x0086,	CMN_PLL1_INTDIV },
-	{ 0xf915,	CMN_PLL1_FRACDIV },
-	{ 0x0022,	CMN_PLL1_HIGH_THR },
-	{ 0x0140,	CMN_PLL1_SS_CTRL1 },
-	{ 0x7f03,	CMN_PLL1_SS_CTRL2 },
-	{ 0x20,		CMN_PLL1_DSM_DIAG },
-	{ 0,		CMN_PLLSM1_USER_DEF_CTRL },
-	{ 0,		CMN_DIAG_PLL1_OVRD },
-	{ 0,		CMN_DIAG_PLL1_FBH_OVRD },
-	{ 0,		CMN_DIAG_PLL1_FBL_OVRD },
-	{ 0x6,		CMN_DIAG_PLL1_V2I_TUNE },
-	{ 0x45,		CMN_DIAG_PLL1_CP_TUNE },
-	{ 0x8,		CMN_DIAG_PLL1_LF_PROG },
-	{ 0x100,	CMN_DIAG_PLL1_PTATIS_TUNE1 },
-	{ 0x7,		CMN_DIAG_PLL1_PTATIS_TUNE2 },
-	{ 0x1,		CMN_DIAG_PLL1_INCLK_CTRL },
+	{ 0x00f0, CMN_PLL1_VCOCAL_INIT },
+	{ 0x0018, CMN_PLL1_VCOCAL_ITER },
+	{ 0x30b9, CMN_PLL1_VCOCAL_START },
+	{ 0x0087, CMN_PLL1_INTDIV },
+	{ 0x0000, CMN_PLL1_FRACDIV },
+	{ 0x0022, CMN_PLL1_HIGH_THR },
+	{ 0x8000, CMN_PLL1_SS_CTRL1 },
+	{ 0x0000, CMN_PLL1_SS_CTRL2 },
+	{ 0x0020, CMN_PLL1_DSM_DIAG },
+	{ 0x0000, CMN_PLLSM1_USER_DEF_CTRL },
+	{ 0x0000, CMN_DIAG_PLL1_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBH_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBL_OVRD },
+	{ 0x0006, CMN_DIAG_PLL1_V2I_TUNE },
+	{ 0x0045, CMN_DIAG_PLL1_CP_TUNE },
+	{ 0x0008, CMN_DIAG_PLL1_LF_PROG },
+	{ 0x0100, CMN_DIAG_PLL1_PTATIS_TUNE1 },
+	{ 0x0007, CMN_DIAG_PLL1_PTATIS_TUNE2 },
+	{ 0x0001, CMN_DIAG_PLL1_INCLK_CTRL },
+};
+
+static const struct phy_reg dp_pll_rbr_ssc_cfg[] = {
+	{ 0x00f0, CMN_PLL1_VCOCAL_INIT },
+	{ 0x0018, CMN_PLL1_VCOCAL_ITER },
+	{ 0x30b9, CMN_PLL1_VCOCAL_START },
+	{ 0x0086, CMN_PLL1_INTDIV },
+	{ 0xf915, CMN_PLL1_FRACDIV },
+	{ 0x0022, CMN_PLL1_HIGH_THR },
+	{ 0x0140, CMN_PLL1_SS_CTRL1 },
+	{ 0x7f03, CMN_PLL1_SS_CTRL2 },
+	{ 0x0020, CMN_PLL1_DSM_DIAG },
+	{ 0x0000, CMN_PLLSM1_USER_DEF_CTRL },
+	{ 0x0000, CMN_DIAG_PLL1_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBH_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBL_OVRD },
+	{ 0x0006, CMN_DIAG_PLL1_V2I_TUNE },
+	{ 0x0045, CMN_DIAG_PLL1_CP_TUNE },
+	{ 0x0008, CMN_DIAG_PLL1_LF_PROG },
+	{ 0x0100, CMN_DIAG_PLL1_PTATIS_TUNE1 },
+	{ 0x0007, CMN_DIAG_PLL1_PTATIS_TUNE2 },
+	{ 0x0001, CMN_DIAG_PLL1_INCLK_CTRL },
 };
 
 static const struct phy_reg dp_pll_hbr_cfg[] = {
-	{ 0xf0,		CMN_PLL1_VCOCAL_INIT },
-	{ 0x18,		CMN_PLL1_VCOCAL_ITER },
-	{ 0x30b4,	CMN_PLL1_VCOCAL_START },
-	{ 0x00e0,	CMN_PLL1_INTDIV },
-	{ 0xf479,	CMN_PLL1_FRACDIV },
-	{ 0x0038,	CMN_PLL1_HIGH_THR },
-	{ 0x0204,	CMN_PLL1_SS_CTRL1 },
-	{ 0x7f03,	CMN_PLL1_SS_CTRL2 },
-	{ 0x20,		CMN_PLL1_DSM_DIAG },
-	{ 0x1000,	CMN_PLLSM1_USER_DEF_CTRL },
-	{ 0,		CMN_DIAG_PLL1_OVRD },
-	{ 0,		CMN_DIAG_PLL1_FBH_OVRD },
-	{ 0,		CMN_DIAG_PLL1_FBL_OVRD },
-	{ 0x7,		CMN_DIAG_PLL1_V2I_TUNE },
-	{ 0x45,		CMN_DIAG_PLL1_CP_TUNE },
-	{ 0x8,		CMN_DIAG_PLL1_LF_PROG },
-	{ 0x1,		CMN_DIAG_PLL1_PTATIS_TUNE1 },
-	{ 0x1,		CMN_DIAG_PLL1_PTATIS_TUNE2 },
-	{ 0x1,		CMN_DIAG_PLL1_INCLK_CTRL },
+	{ 0x00f0, CMN_PLL1_VCOCAL_INIT },
+	{ 0x0018, CMN_PLL1_VCOCAL_ITER },
+	{ 0x30b4, CMN_PLL1_VCOCAL_START },
+	{ 0x00e1, CMN_PLL1_INTDIV },
+	{ 0x0000, CMN_PLL1_FRACDIV },
+	{ 0x0005, CMN_PLL1_HIGH_THR },
+	{ 0x8000, CMN_PLL1_SS_CTRL1 },
+	{ 0x0000, CMN_PLL1_SS_CTRL2 },
+	{ 0x0020, CMN_PLL1_DSM_DIAG },
+	{ 0x1000, CMN_PLLSM1_USER_DEF_CTRL },
+	{ 0x0000, CMN_DIAG_PLL1_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBH_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBL_OVRD },
+	{ 0x0007, CMN_DIAG_PLL1_V2I_TUNE },
+	{ 0x0045, CMN_DIAG_PLL1_CP_TUNE },
+	{ 0x0008, CMN_DIAG_PLL1_LF_PROG },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE1 },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE2 },
+	{ 0x0001, CMN_DIAG_PLL1_INCLK_CTRL },
+};
+
+static const struct phy_reg dp_pll_hbr_ssc_cfg[] = {
+	{ 0x00f0, CMN_PLL1_VCOCAL_INIT },
+	{ 0x0018, CMN_PLL1_VCOCAL_ITER },
+	{ 0x30b4, CMN_PLL1_VCOCAL_START },
+	{ 0x00e0, CMN_PLL1_INTDIV },
+	{ 0xf479, CMN_PLL1_FRACDIV },
+	{ 0x0038, CMN_PLL1_HIGH_THR },
+	{ 0x0204, CMN_PLL1_SS_CTRL1 },
+	{ 0x7f03, CMN_PLL1_SS_CTRL2 },
+	{ 0x0020, CMN_PLL1_DSM_DIAG },
+	{ 0x1000, CMN_PLLSM1_USER_DEF_CTRL },
+	{ 0x0000, CMN_DIAG_PLL1_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBH_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBL_OVRD },
+	{ 0x0007, CMN_DIAG_PLL1_V2I_TUNE },
+	{ 0x0045, CMN_DIAG_PLL1_CP_TUNE },
+	{ 0x0008, CMN_DIAG_PLL1_LF_PROG },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE1 },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE2 },
+	{ 0x0001, CMN_DIAG_PLL1_INCLK_CTRL },
 };
 
 static const struct phy_reg dp_pll_hbr2_cfg[] = {
-	{ 0xf0,		CMN_PLL1_VCOCAL_INIT },
-	{ 0x18,		CMN_PLL1_VCOCAL_ITER },
-	{ 0x30b4,	CMN_PLL1_VCOCAL_START },
-	{ 0x00e0,	CMN_PLL1_INTDIV },
-	{ 0xf479,	CMN_PLL1_FRACDIV },
-	{ 0x0038,	CMN_PLL1_HIGH_THR },
-	{ 0x0204,	CMN_PLL1_SS_CTRL1 },
-	{ 0x7f03,	CMN_PLL1_SS_CTRL2 },
-	{ 0x20,		CMN_PLL1_DSM_DIAG },
-	{ 0x1000,	CMN_PLLSM1_USER_DEF_CTRL },
-	{ 0,		CMN_DIAG_PLL1_OVRD },
-	{ 0,		CMN_DIAG_PLL1_FBH_OVRD },
-	{ 0,		CMN_DIAG_PLL1_FBL_OVRD },
-	{ 0x7,		CMN_DIAG_PLL1_V2I_TUNE },
-	{ 0x45,		CMN_DIAG_PLL1_CP_TUNE },
-	{ 0x8,		CMN_DIAG_PLL1_LF_PROG },
-	{ 0x1,		CMN_DIAG_PLL1_PTATIS_TUNE1 },
-	{ 0x1,		CMN_DIAG_PLL1_PTATIS_TUNE2 },
-	{ 0x1,		CMN_DIAG_PLL1_INCLK_CTRL },
+	{ 0x00f0, CMN_PLL1_VCOCAL_INIT },
+	{ 0x0018, CMN_PLL1_VCOCAL_ITER },
+	{ 0x30b4, CMN_PLL1_VCOCAL_START },
+	{ 0x00e1, CMN_PLL1_INTDIV },
+	{ 0x0000, CMN_PLL1_FRACDIV },
+	{ 0x0005, CMN_PLL1_HIGH_THR },
+	{ 0x8000, CMN_PLL1_SS_CTRL1 },
+	{ 0x0000, CMN_PLL1_SS_CTRL2 },
+	{ 0x0020, CMN_PLL1_DSM_DIAG },
+	{ 0x1000, CMN_PLLSM1_USER_DEF_CTRL },
+	{ 0x0000, CMN_DIAG_PLL1_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBH_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBL_OVRD },
+	{ 0x0007, CMN_DIAG_PLL1_V2I_TUNE },
+	{ 0x0045, CMN_DIAG_PLL1_CP_TUNE },
+	{ 0x0008, CMN_DIAG_PLL1_LF_PROG },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE1 },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE2 },
+	{ 0x0001, CMN_DIAG_PLL1_INCLK_CTRL },
+};
+
+static const struct phy_reg dp_pll_hbr2_ssc_cfg[] = {
+	{ 0x00f0, CMN_PLL1_VCOCAL_INIT },
+	{ 0x0018, CMN_PLL1_VCOCAL_ITER },
+	{ 0x30b4, CMN_PLL1_VCOCAL_START },
+	{ 0x00e0, CMN_PLL1_INTDIV },
+	{ 0xf479, CMN_PLL1_FRACDIV },
+	{ 0x0038, CMN_PLL1_HIGH_THR },
+	{ 0x0204, CMN_PLL1_SS_CTRL1 },
+	{ 0x7f03, CMN_PLL1_SS_CTRL2 },
+	{ 0x0020, CMN_PLL1_DSM_DIAG },
+	{ 0x1000, CMN_PLLSM1_USER_DEF_CTRL },
+	{ 0x0000, CMN_DIAG_PLL1_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBH_OVRD },
+	{ 0x0000, CMN_DIAG_PLL1_FBL_OVRD },
+	{ 0x0007, CMN_DIAG_PLL1_V2I_TUNE },
+	{ 0x0045, CMN_DIAG_PLL1_CP_TUNE },
+	{ 0x0008, CMN_DIAG_PLL1_LF_PROG },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE1 },
+	{ 0x0001, CMN_DIAG_PLL1_PTATIS_TUNE2 },
+	{ 0x0001, CMN_DIAG_PLL1_INCLK_CTRL },
 };
 
 /* default phy config */
@@ -602,10 +668,13 @@ static void tcphy_set_lane_mapping(struct rockchip_typec_phy *tcphy, u8 mode)
 	}
 }
 
-static int tcphy_dp_set_lane_count(struct rockchip_typec_phy *tcphy,
-				   u8 lane_count)
+int tcphy_dp_set_lane_count(struct phy *phy, u8 lane_count)
 {
+	struct rockchip_typec_phy *tcphy = phy_get_drvdata(phy);
 	u32 reg;
+
+	if (!phy->power_count)
+		return -EPERM;
 
 	/*
 	 * In cases where fewer than the configured number of DP lanes are
@@ -634,18 +703,20 @@ static int tcphy_dp_set_lane_count(struct rockchip_typec_phy *tcphy,
 
 	writel(reg, tcphy->base + PHY_DP_MODE_CTL);
 
-	tcphy->dp.lane_count = lane_count;
-
 	return 0;
 }
+EXPORT_SYMBOL(tcphy_dp_set_lane_count);
 
-static int tcphy_dp_set_link_rate(struct rockchip_typec_phy *tcphy,
-				  int link_rate)
+int tcphy_dp_set_link_rate(struct phy *phy, int link_rate, bool ssc_on)
 {
+	struct rockchip_typec_phy *tcphy = phy_get_drvdata(phy);
 	const struct phy_reg *phy_cfg;
 	u32 cmn_diag_hsclk_sel, phy_dp_clk_ctl, reg;
 	u32 i, cfg_size;
 	int ret;
+
+	if (!phy->power_count)
+		return -EPERM;
 
 	/* Place the PHY lanes in the A3 power state. */
 	ret = tcphy_dp_set_power_state(tcphy, PHY_DP_POWER_STATE_A3);
@@ -694,22 +765,25 @@ static int tcphy_dp_set_link_rate(struct rockchip_typec_phy *tcphy,
 		cmn_diag_hsclk_sel |= (3 << 4) | (0 << 0);
 		phy_dp_clk_ctl |= (2 << 12) | (4 << 8);
 
-		phy_cfg = dp_pll_rbr_cfg;
-		cfg_size = ARRAY_SIZE(dp_pll_rbr_cfg);
+		phy_cfg = ssc_on ? dp_pll_rbr_ssc_cfg : dp_pll_rbr_cfg;
+		cfg_size = ssc_on ? ARRAY_SIZE(dp_pll_rbr_ssc_cfg) :
+				    ARRAY_SIZE(dp_pll_rbr_cfg);
 		break;
 	case 270000:
 		cmn_diag_hsclk_sel |= (3 << 4) | (0 << 0);
 		phy_dp_clk_ctl |= (2 << 12) | (4 << 8);
 
-		phy_cfg = dp_pll_hbr_cfg;
-		cfg_size = ARRAY_SIZE(dp_pll_hbr_cfg);
+		phy_cfg = ssc_on ? dp_pll_hbr_ssc_cfg : dp_pll_hbr_cfg;
+		cfg_size = ssc_on ? ARRAY_SIZE(dp_pll_hbr_ssc_cfg) :
+				    ARRAY_SIZE(dp_pll_hbr_cfg);
 		break;
 	case 540000:
 		cmn_diag_hsclk_sel |= (2 << 4) | (0 << 0);
 		phy_dp_clk_ctl |= (1 << 12) | (2 << 8);
 
-		phy_cfg = dp_pll_hbr2_cfg;
-		cfg_size = ARRAY_SIZE(dp_pll_hbr2_cfg);
+		phy_cfg = ssc_on ? dp_pll_hbr2_ssc_cfg : dp_pll_hbr2_cfg;
+		cfg_size = ssc_on ? ARRAY_SIZE(dp_pll_hbr2_ssc_cfg) :
+				    ARRAY_SIZE(dp_pll_hbr2_cfg);
 		break;
 	default:
 		return -EINVAL;
@@ -764,10 +838,9 @@ static int tcphy_dp_set_link_rate(struct rockchip_typec_phy *tcphy,
 		return ret;
 	}
 
-	tcphy->dp.link_rate = link_rate;
-
 	return 0;
 }
+EXPORT_SYMBOL(tcphy_dp_set_link_rate);
 
 static void tcphy_cfg_24m(struct rockchip_typec_phy *tcphy)
 {
@@ -842,8 +915,6 @@ static void tcphy_cfg_dp_pll(struct rockchip_typec_phy *tcphy, int link_rate)
 	/* load the configuration of PLL1 */
 	for (i = 0; i < cfg_size; i++)
 		writel(phy_cfg[i].value, tcphy->base + phy_cfg[i].addr);
-
-	tcphy->dp.link_rate = link_rate;
 }
 
 static void tcphy_tx_usb3_cfg_lane(struct rockchip_typec_phy *tcphy, u32 lane)
@@ -870,43 +941,13 @@ static void tcphy_rx_usb3_cfg_lane(struct rockchip_typec_phy *tcphy, u32 lane)
 	writel(0xfb, tcphy->base + XCVR_DIAG_BIDI_CTRL(lane));
 }
 
-static void tcphy_dp_cfg_lane(struct rockchip_typec_phy *tcphy, int link_rate,
-			      u8 swing, u8 pre_emp, u32 lane)
+static void tcphy_dp_cfg_lane(struct rockchip_typec_phy *tcphy, u32 lane)
 {
-	u16 val;
-
 	writel(0xbefc, tcphy->base + XCVR_PSM_RCTRL(lane));
 	writel(0x6799, tcphy->base + TX_PSC_A0(lane));
 	writel(0x6798, tcphy->base + TX_PSC_A1(lane));
 	writel(0x98, tcphy->base + TX_PSC_A2(lane));
 	writel(0x98, tcphy->base + TX_PSC_A3(lane));
-
-	writel(tcphy->config[swing][pre_emp].swing,
-	       tcphy->base + TX_TXCC_MGNFS_MULT_000(lane));
-	writel(tcphy->config[swing][pre_emp].pe,
-	       tcphy->base + TX_TXCC_CPOST_MULT_00(lane));
-
-	if (swing == 2 && pre_emp == 0 && link_rate != 540000) {
-		writel(0x700, tcphy->base + TX_DIAG_TX_DRV(lane));
-		writel(0x13c, tcphy->base + TX_TXCC_CAL_SCLR_MULT(lane));
-	} else {
-		writel(0x128, tcphy->base + TX_TXCC_CAL_SCLR_MULT(lane));
-		writel(0x0400, tcphy->base + TX_DIAG_TX_DRV(lane));
-	}
-
-	val = readl(tcphy->base + XCVR_DIAG_PLLDRC_CTRL(lane));
-	val = val & 0x8fff;
-	switch (link_rate) {
-	case 540000:
-		val |= (5 << 12);
-		break;
-	case 162000:
-	case 270000:
-	default:
-		val |= (6 << 12);
-		break;
-	}
-	writel(val, tcphy->base + XCVR_DIAG_PLLDRC_CTRL(lane));
 }
 
 static inline int property_enable(struct rockchip_typec_phy *tcphy,
@@ -1071,6 +1112,18 @@ static void tcphy_dp_aux_calibration(struct rockchip_typec_phy *tcphy)
 	writel(val, tcphy->base + TX_DIG_CTRL_REG_2);
 }
 
+static int tcphy_cfg_usb3_to_usb2_only(struct rockchip_typec_phy *tcphy,
+				       bool value)
+{
+	struct rockchip_usb3phy_port_cfg *cfg = &tcphy->port_cfgs;
+
+	property_enable(tcphy, &cfg->usb3tousb2_en, value);
+	property_enable(tcphy, &cfg->usb3host_disable, value);
+	property_enable(tcphy, &cfg->usb3host_port, !value);
+
+	return 0;
+}
+
 static int tcphy_phy_init(struct rockchip_typec_phy *tcphy, u8 mode)
 {
 	struct rockchip_usb3phy_port_cfg *cfg = &tcphy->port_cfgs;
@@ -1098,22 +1151,23 @@ static int tcphy_phy_init(struct rockchip_typec_phy *tcphy, u8 mode)
 	tcphy_set_lane_mapping(tcphy, mode);
 
 	if (mode == MODE_DFP_DP) {
+		tcphy_cfg_usb3_to_usb2_only(tcphy, true);
 		tcphy_cfg_dp_pll(tcphy, DP_DEFAULT_RATE);
 		for (i = 0; i < 4; i++)
-			tcphy_dp_cfg_lane(tcphy, DP_DEFAULT_RATE, 0, 0, i);
+			tcphy_dp_cfg_lane(tcphy, i);
 	} else {
 		tcphy_cfg_usb3_pll(tcphy);
 		tcphy_cfg_dp_pll(tcphy, DP_DEFAULT_RATE);
 		if (tcphy->flip) {
 			tcphy_tx_usb3_cfg_lane(tcphy, 3);
 			tcphy_rx_usb3_cfg_lane(tcphy, 2);
-			tcphy_dp_cfg_lane(tcphy, DP_DEFAULT_RATE, 0, 0, 0);
-			tcphy_dp_cfg_lane(tcphy, DP_DEFAULT_RATE, 0, 0, 1);
+			tcphy_dp_cfg_lane(tcphy, 0);
+			tcphy_dp_cfg_lane(tcphy, 1);
 		} else {
 			tcphy_tx_usb3_cfg_lane(tcphy, 0);
 			tcphy_rx_usb3_cfg_lane(tcphy, 1);
-			tcphy_dp_cfg_lane(tcphy, DP_DEFAULT_RATE, 0, 0, 2);
-			tcphy_dp_cfg_lane(tcphy, DP_DEFAULT_RATE, 0, 0, 3);
+			tcphy_dp_cfg_lane(tcphy, 2);
+			tcphy_dp_cfg_lane(tcphy, 3);
 		}
 	}
 
@@ -1205,18 +1259,6 @@ static int tcphy_get_mode(struct rockchip_typec_phy *tcphy)
 	tcphy->flip = property.intval ? 1 : 0;
 
 	return mode;
-}
-
-static int tcphy_cfg_usb3_to_usb2_only(struct rockchip_typec_phy *tcphy,
-				       bool value)
-{
-	struct rockchip_usb3phy_port_cfg *cfg = &tcphy->port_cfgs;
-
-	property_enable(tcphy, &cfg->usb3tousb2_en, value);
-	property_enable(tcphy, &cfg->usb3host_disable, value);
-	property_enable(tcphy, &cfg->usb3host_port, !value);
-
-	return 0;
 }
 
 static int _rockchip_usb3_phy_power_on(struct rockchip_typec_phy *tcphy)
@@ -1418,41 +1460,40 @@ static int typec_dp_phy_config(struct phy *phy, int link_rate,
 			 int lane_count, u8 swing, u8 pre_emp)
 {
 	struct rockchip_typec_phy *tcphy = phy_get_drvdata(phy);
-	u8 i;
-	int ret;
+	u8 i, j, lane;
+	u32 val;
 
-	dev_dbg(tcphy->dev, "link_rate=%d, lane_count=%d\n",
-		link_rate, lane_count);
-	dev_dbg(tcphy->dev, "voltage_swing=%d, pre_emphasis=%d\n",
-		swing, pre_emp);
-
-	if (lane_count != tcphy->dp.lane_count) {
-		ret = tcphy_dp_set_lane_count(tcphy, lane_count);
-		if (ret) {
-			dev_err(tcphy->dev, "failed to set lane count\n");
-			return ret;
-		}
-	}
-
-	if (link_rate != tcphy->dp.link_rate) {
-		ret = tcphy_dp_set_link_rate(tcphy, link_rate);
-		if (ret) {
-			dev_err(tcphy->dev, "failed to set lane rate\n");
-			return ret;
-		}
-	}
-
-	if (tcphy->mode == MODE_DFP_DP) {
-		for (i = 0; i < 4; i++)
-			tcphy_dp_cfg_lane(tcphy, link_rate, swing, pre_emp, i);
+	if (lane_count == 4) {
+		i = 0;
+		j = 3;
 	} else {
 		if (tcphy->flip) {
-			tcphy_dp_cfg_lane(tcphy, link_rate, swing, pre_emp, 0);
-			tcphy_dp_cfg_lane(tcphy, link_rate, swing, pre_emp, 1);
+			i = 0;
+			j = 1;
 		} else {
-			tcphy_dp_cfg_lane(tcphy, link_rate, swing, pre_emp, 2);
-			tcphy_dp_cfg_lane(tcphy, link_rate, swing, pre_emp, 3);
+			i = 2;
+			j = 3;
 		}
+	}
+
+	for (lane = i; lane <= j; lane++) {
+		writel(tcphy->config[swing][pre_emp].swing,
+		       tcphy->base + TX_TXCC_MGNFS_MULT_000(lane));
+		writel(tcphy->config[swing][pre_emp].pe,
+		       tcphy->base + TX_TXCC_CPOST_MULT_00(lane));
+
+		if (swing == 2 && pre_emp == 0 && link_rate != 540000) {
+			writel(0x700, tcphy->base + TX_DIAG_TX_DRV(lane));
+			writel(0x13c, tcphy->base + TX_TXCC_CAL_SCLR_MULT(lane));
+		} else {
+			writel(0x128, tcphy->base + TX_TXCC_CAL_SCLR_MULT(lane));
+			writel(0x0400, tcphy->base + TX_DIAG_TX_DRV(lane));
+		}
+
+		val = readl(tcphy->base + XCVR_DIAG_PLLDRC_CTRL(lane));
+		val &= ~GENMASK(14, 12);
+		val |= ((link_rate == 540000) ? 0x5 : 0x6) << 12;
+		writel(val, tcphy->base + XCVR_DIAG_PLLDRC_CTRL(lane));
 	}
 
 	return 0;
