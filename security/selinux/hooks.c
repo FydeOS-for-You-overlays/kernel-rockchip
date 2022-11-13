@@ -3174,7 +3174,7 @@ static int selinux_inode_getsecurity(const struct inode *inode, const char *name
 	int error;
 	char *context = NULL;
 #ifdef CONFIG_OVERLAY_FS
-  struct inode_security_struct *isec = get_real_inode_from_ovl(inode)->i_security;
+	struct inode_security_struct *isec = get_real_inode_from_ovl((struct inode *)inode)->i_security;
 #else
 	struct inode_security_struct *isec = inode->i_security;
 #endif
